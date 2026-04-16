@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben Kim — Fashion Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #2C2418;
+      --ink:       #1A1A1A;
+      --ink-light: #6A6A6A;
+      --accent:    #A08C70;
+      --accent-lt: #D4C4AD;
+      --rule:      #E2E0DB;
+      --white:     #FFFFFF;
+      --ease:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Nav ───────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      mix-blend-mode: difference;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 0.5; }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────── */
+    #hero {
+      height: 100dvh;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      overflow: hidden;
+    }
+
+    /* ── Left panel ── */
+    .hero-left {
+      background: #2C2418;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 3rem 5rem 4rem;
+      position: relative;
+      color: var(--white);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.2vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-name em {
+      display: block;
+      font-style: italic;
+      color: #FFFFFF;
+    }
+
+    .hero-tagline {
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* Scroll indicator — bottom-left of left panel */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 2.5rem;
+      background: rgba(255,255,255,0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.6);
+      animation: scrollDrop 1.8s var(--ease) infinite;
+    }
+
+    @keyframes scrollDrop {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ── Right panel ── */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: #2C2418;
+    }
+
+    .hero-right video,
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── Section Shared ────────────────────────────────────────────────── */
+    section { padding: 6rem 3rem; }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── Fade-in (Intersection Observer) ──────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up.delay-1 { transition-delay: 0.12s; }
+    .fade-up.delay-2 { transition-delay: 0.24s; }
+    .fade-up.delay-3 { transition-delay: 0.36s; }
+    .fade-up.delay-4 { transition-delay: 0.48s; }
+
+    /* ─── Gallery ───────────────────────────────────────────────────────── */
+    #gallery { background: var(--ink); color: var(--white); }
+
+    #gallery .section-label {
+      color: #FFFFFF;
+      font-size: clamp(1.4rem, 3vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      margin-bottom: 0;
+    }
+
+    .gallery-header {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    /* ─── Filter tabs ──────────────────────────────────────────────────── */
+    .gallery-filters {
+      max-width: 1200px;
+      margin: 0 auto 2.75rem;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .filter-tab {
+      position: relative;
+      padding: 0.6rem 0;
+      margin-right: 2.25rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--accent-lt);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .filter-tab:hover { color: rgba(255,255,255,0.65); }
+
+    .filter-tab.active {
+      color: var(--white);
+    }
+
+    .filter-tab.active::after { transform: scaleX(1); }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: #2A2A28;
+      aspect-ratio: 3/4;
+      transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+
+    .gallery-item.tall { aspect-ratio: unset; grid-row: span 2; }
+
+    .gallery-item.filtered-out {
+      opacity: 0;
+      transform: scale(0.96);
+      pointer-events: none;
+    }
+
+    .gallery-item.hidden { display: none; }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .gallery-item .img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #242420 0%, #3A3430 100%);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.18);
+      text-transform: uppercase;
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:hover video { transform: scale(1.04); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,8,5,0.82) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-overlay-brand {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-overlay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .gallery-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 3rem;
+      height: 3rem;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .gallery-play-btn svg { width: 0.9rem; height: 0.9rem; fill: white; margin-left: 0.15rem; }
+
+    .gallery-item.is-video:hover .gallery-play-btn { opacity: 1; }
+
+    /* ─── Lightbox ──────────────────────────────────────────────────────── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(8, 7, 5, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lightbox-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-inner img,
+    .lightbox-inner video {
+      max-width: 90vw;
+      max-height: 88dvh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.75rem;
+      right: 2rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.55);
+      font-size: 1.75rem;
+      line-height: 1;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .lightbox-close:hover { color: white; }
+
+    .lightbox-caption {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.35);
+      font-size: 1.5rem;
+      transition: color 0.2s;
+      user-select: none;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .lightbox-nav:hover { color: white; }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+
+    /* ─── About ─────────────────────────────────────────────────────────── */
+    #about {
+      background: #F5F5F3;
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+
+    /* About 섹션 내부 텍스트·구분선 색상 오버라이드 */
+    #about .about-name         { color: #1A1A1A; }
+    #about .about-name-en      { color: #555555; }
+    #about .about-bio          { color: #1A1A1A; }
+    #about .section-label      { color: var(--accent); }
+    #about .timeline-label,
+    #about .skills-label,
+    #about .awards-label       { color: var(--accent); }
+    #about .timeline-co        { color: #1A1A1A; }
+    #about .timeline-role      { color: #555555; }
+    #about .timeline-date      { color: #555555; }
+    #about .timeline-badge     { color: var(--accent); border-color: var(--accent-lt); }
+    #about .timeline           { border-top-color: #CCCCCC; }
+    #about .timeline-item + .timeline-item::before { background: #CCCCCC; }
+    #about .timeline-body::before { background: var(--accent); }
+    #about .skills-section,
+    #about .awards-section     { border-top-color: #CCCCCC; }
+    #about .skill-bar          { background: #CCCCCC; }
+    #about .skill-name         { color: #1A1A1A; }
+    #about .skill-level        { color: #555555; }
+    #about .award-item         { border-bottom-color: #CCCCCC; }
+    #about .award-name         { color: #1A1A1A; }
+    #about .award-meta         { color: #555555; }
+    #about .info-block-title   { color: #1A1A1A; }
+    #about .info-block-title::after { background: #CCCCCC; }
+    #about .info-label         { color: var(--accent); }
+    #about .info-value         { color: #1A1A1A; }
+    #about .info-table th      { color: #555555; border-bottom-color: #CCCCCC; }
+    #about .info-table td      { color: #1A1A1A; }
+    #about .info-activity      { border-bottom-color: #CCCCCC; }
+    #about .about-photo-placeholder { background: #E0DDD8; color: rgba(0,0,0,0.3); }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-photo-wrap {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #D8D4CB 0%, #C8C0B0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.22);
+    }
+
+    .about-text { padding-top: 0.25rem; }
+
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .about-name-en {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink-light);
+      font-weight: 400;
+    }
+
+    .about-bio {
+      margin-top: 1.75rem;
+      font-size: 0.93rem;
+      line-height: 1.88;
+      color: #3A3A3A;
+      max-width: 50ch;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.6rem;
+    }
+
+    .about-tag {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--rule);
+      color: var(--ink-light);
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .timeline-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+      position: relative;
+    }
+
+    .timeline-item + .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 7.5rem;
+      top: -2.25rem;
+      height: 2.25rem;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .timeline-date {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink-light);
+      padding-top: 0.1rem;
+      text-align: right;
+      padding-right: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .timeline-body {
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .timeline-body::before {
+      content: '';
+      position: absolute;
+      left: -0.35rem;
+      top: 0.42rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .timeline-co {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-role {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      line-height: 1.65;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-lt);
+      padding: 0.15rem 0.55rem;
+    }
+
+    /* ─── Info blocks (학력·어학·연수·주요활동) ─────────────────────────── */
+    .info-blocks {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .info-block {}
+
+    .info-block-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
+    }
+
+    .info-block-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      gap: 0.3rem 1rem;
+      margin-bottom: 0.9rem;
+      align-items: baseline;
+    }
+
+    .info-row:last-child { margin-bottom: 0; }
+
+    .info-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      padding-top: 0.05rem;
+    }
+
+    .info-value {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    .info-value strong {
+      font-weight: 600;
+    }
+
+    /* 주요활동 — 항목 사이 간격 */
+    .info-activity {
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .info-activity:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    /* 어학 테이블 */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    .info-table th {
+      text-align: left;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ink-light);
+      padding: 0 1rem 0.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .info-table td {
+      padding: 0.55rem 1rem 0 0;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .info-table td:nth-child(2) { color: var(--accent); font-weight: 500; }
+    .info-table td:nth-child(3) { color: var(--accent); font-weight: 600; }
+
+    /* ─── Skills ────────────────────────────────────────────────────────── */
+    .skills-section {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .skills-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 2.5rem;
+    }
+
+    .skill-item {}
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .skill-level {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .skill-bar {
+      height: 2px;
+      background: var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.9s var(--ease);
+    }
+
+    .skills-section.visible .skill-fill {
+      transform: scaleX(1);
+    }
+
+    /* ─── Awards ─────────────────────────────────────────────────────────── */
+    .awards-section {
+      margin-top: 3rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .awards-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .award-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rule);
+      gap: 1rem;
+    }
+
+    .award-item:last-child { border-bottom: none; }
+
+    .award-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .award-meta {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .award-prize {
+      display: inline-block;
+      margin-top: 0.15rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-lt);
+      padding: 0.1rem 0.45rem;
+    }
+
+    /* ─── Contact ───────────────────────────────────────────────────────── */
+    #contact {
+      background: var(--ink);
+      color: var(--white);
+      padding: 7rem 3rem;
+      text-align: center;
+    }
+
+    #contact .section-label { color: var(--accent-lt); }
+
+    .contact-cta {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 3.25rem);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.2;
+      max-width: 620px;
+      margin: 1.5rem auto 3.5rem;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 0.15rem;
+      transition: color 0.25s, border-color 0.25s;
+    }
+
+    .contact-link:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .contact-link svg {
+      width: 0.95rem;
+      height: 0.95rem;
+      flex-shrink: 0;
+      opacity: 0.55;
+    }
+
+    .contact-divider {
+      width: 1px;
+      height: 1.2rem;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .contact-footer {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────────────── */
+    /* Hero: 모바일 — 상하 스택 */
+    @media (max-width: 768px) {
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 52vw;
+        height: auto;
+        min-height: unset;
+      }
+      .hero-left {
+        padding: 7rem 1.5rem 3rem;
+        order: 1;
+      }
+      .hero-right {
+        order: 2;
+        height: 52vw;
+        min-height: 240px;
+      }
+      .scroll-hint { left: 1.5rem; bottom: 1.5rem; }
+      .hero-name { font-size: clamp(2rem, 7vw, 3rem); }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 4.5rem 1.5rem; }
+
+      .filter-tab { margin-right: 1.5rem; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item.tall { grid-row: auto; aspect-ratio: 3/4; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .about-photo-wrap { position: static; }
+      .about-photo,
+      .about-photo-placeholder { aspect-ratio: 4/3; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.25rem; }
+      .gallery-grid { gap: 0.4rem; }
+
+      .skills-grid { grid-template-columns: 1fr; }
+      .info-table th:nth-child(n+4),
+      .info-table td:nth-child(n+4) { display: none; }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+      .timeline-item + .timeline-item::before { display: none; }
+      .timeline-date {
+        text-align: left;
+        padding-right: 0;
+        color: var(--accent);
+        font-size: 0.68rem;
+      }
+      .timeline-body { padding-left: 0; }
+      .timeline-body::before { display: none; }
+
+      .contact-links { flex-direction: column; gap: 1.25rem; }
+      .contact-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────────────────────────── -->
+  <nav>
+    <span class="nav-logo">Ben Kim</span>
+    <ul class="nav-links">
+      <li><a href="#gallery">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+  <section id="hero">
+
+    <!-- Left: text -->
+    <div class="hero-left">
+      <p class="hero-eyebrow">Fashion Designer &amp; Brand Founder</p>
+      <h1 class="hero-name">김민성<em>Ben Kim</em></h1>
+      <p class="hero-tagline">Seoul &rarr; Vancouver &rarr; Everywhere</p>
+
+      <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+
+    <!-- Right: video → image fallback -->
+    <div class="hero-right">
+      <video
+        src="assets/hero.mp4"
+        autoplay muted loop playsinline
+        poster="assets/hero.jpg"
+        id="heroVideo"
+      ></video>
+      <img
+        src="assets/hero.jpg"
+        alt="Ben Kim"
+        id="heroImg"
+        style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"
+      />
+    </div>
+
+  </section>
+
+  <!-- ─── Gallery ──────────────────────────────────────────────────────── -->
+  <section id="gallery">
+    <div class="gallery-header">
+      <p class="section-label fade-up">Selected Works</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="gallery-filters fade-up delay-2" role="tablist" aria-label="작업 카테고리 필터">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-tab" data-filter="ssen10" role="tab" aria-selected="false">SSEN10</button>
+      <button class="filter-tab" data-filter="brand" role="tab" aria-selected="false">Brand</button>
+      <button class="filter-tab" data-filter="clo" role="tab" aria-selected="false">3D CLO</button>
+      <button class="filter-tab" data-filter="styling" role="tab" aria-selected="false">Styling</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- Brand: dos_means FW — tall (span 2 rows) -->
+      <div class="gallery-item tall"
+           data-category="brand" data-title="FW Collection" data-brand="dos_means">
+        <img src="assets/work-01.jpg" alt="dos_means FW Collection"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-01</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">dos_means</span>
+          <span class="gallery-overlay-title">FW Collection</span>
+        </div>
+      </div>
+
+      <!-- SSEN10: Uniform Concept -->
+      <div class="gallery-item"
+           data-category="ssen10" data-title="Uniform Concept" data-brand="Hojeon × SSEN10">
+        <img src="assets/work-02.jpg" alt="SSEN10 Uniform Concept"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-02</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">Hojeon × SSEN10</span>
+          <span class="gallery-overlay-title">Uniform Concept</span>
+        </div>
+      </div>
+
+      <!-- Styling -->
+      <div class="gallery-item"
+           data-category="styling" data-title="Seasonal Styling" data-brand="tego">
+        <img src="assets/work-03.jpg" alt="tego Seasonal Styling"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-03</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">tego</span>
+          <span class="gallery-overlay-title">Seasonal Styling</span>
+        </div>
+      </div>
+
+      <!-- SSEN10: Production Sample -->
+      <div class="gallery-item"
+           data-category="ssen10" data-title="Production Sample" data-brand="Hojeon × SSEN10">
+        <img src="assets/work-04.jpg" alt="SSEN10 Production"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-04</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">Hojeon × SSEN10</span>
+          <span class="gallery-overlay-title">Production Sample</span>
+        </div>
+      </div>
+
+      <!-- Brand: tego — tall (span 2 rows) -->
+      <div class="gallery-item tall"
+           data-category="brand" data-title="Musinsa Scholar 1st Gen" data-brand="tego">
+        <img src="assets/work-05.jpg" alt="tego Musinsa Scholar"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-05</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">tego</span>
+          <span class="gallery-overlay-title">Musinsa Scholar 1st Gen</span>
+        </div>
+      </div>
+
+      <!-- 3D CLO: Garment Simulation -->
+      <div class="gallery-item"
+           data-category="clo" data-title="Garment Simulation" data-brand="wrksp">
+        <img src="assets/work-06.jpg" alt="CLO 3D Garment Simulation"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-06</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">wrksp</span>
+          <span class="gallery-overlay-title">Garment Simulation</span>
+        </div>
+      </div>
+
+      <!-- Styling: Campaign Film (video) -->
+      <div class="gallery-item is-video"
+           data-category="styling" data-title="Campaign Film" data-brand="tego"
+           data-video="assets/work-video.mp4">
+        <img src="assets/work-07.jpg" alt="tego Campaign Film"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-07</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">tego</span>
+          <span class="gallery-overlay-title">Campaign Film</span>
+        </div>
+        <div class="gallery-play-btn">
+          <svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg>
+        </div>
+      </div>
+
+      <!-- 3D CLO: Pattern Study -->
+      <div class="gallery-item"
+           data-category="clo" data-title="Pattern Study" data-brand="dos_means">
+        <img src="assets/work-08.jpg" alt="CLO 3D Pattern Study"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="img-placeholder">work-08</div>
+        <div class="gallery-overlay">
+          <span class="gallery-overlay-brand">dos_means</span>
+          <span class="gallery-overlay-title">Pattern Study</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── About ────────────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="about-inner">
+
+      <div class="about-photo-wrap fade-up">
+        <img class="about-photo" src="assets/profile.jpg" alt="김민성 Ben Kim"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="about-photo-placeholder" style="display:none;">Profile Photo</div>
+      </div>
+
+      <div class="about-text">
+        <p class="section-label fade-up">About</p>
+
+        <h2 class="about-name fade-up delay-1">
+          김민성<br />
+          <span class="about-name-en">Ben Kim</span>
+        </h2>
+
+        <p class="about-bio fade-up delay-2">
+          안녕하세요, 김민성입니다.<br />
+          2년 이상 의류 및 로고 디자인 업무를 담당하며,
+          생산 프로세스 이해를 위해 자체 브랜드 운영 경험이 있습니다.<br />
+          디자인부터 생산, 커뮤니케이션까지 전 과정을 이해하고 있으며,
+          실무 중심의 기획력과 실행력을 바탕으로 브랜드 가치를 함께 만들어가고 싶습니다.
+        </p>
+
+        <div class="info-blocks fade-up delay-2">
+
+          <!-- 학력사항 -->
+          <div class="info-block">
+            <p class="info-block-title">학력사항</p>
+            <div class="info-row">
+              <span class="info-label">기간</span>
+              <span class="info-value"><strong>2016.02 – 2022.09</strong></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">학교</span>
+              <span class="info-value">한성대학교 | 패션학부 졸업 | 3.71 / 4.5</span>
+            </div>
+          </div>
+
+          <!-- 어학능력 -->
+          <div class="info-block">
+            <p class="info-block-title">어학능력</p>
+            <table class="info-table">
+              <thead>
+                <tr>
+                  <th>외국어</th>
+                  <th>시험</th>
+                  <th>점수</th>
+                  <th>증빙 기관</th>
+                  <th>취득일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>영어</td>
+                  <td>TOEIC</td>
+                  <td>930점</td>
+                  <td>YBM</td>
+                  <td>2025.12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 연수 -->
+          <div class="info-block">
+            <p class="info-block-title">연수</p>
+            <div class="info-row">
+              <span class="info-label">기간</span>
+              <span class="info-value"><strong>2024.11 – 2025.11</strong></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">과정</span>
+              <span class="info-value">워킹홀리데이 및 어학연수</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">국가</span>
+              <span class="info-value">캐나다</span>
+            </div>
+          </div>
+
+          <!-- 주요활동 -->
+          <div class="info-block">
+            <p class="info-block-title">주요활동</p>
+
+            <div class="info-activity">
+              <div class="info-row">
+                <span class="info-label">기간</span>
+                <span class="info-value"><strong>2022.01 – 2022.07</strong></span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">기관</span>
+                <span class="info-value">무신사</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">활동내용</span>
+                <span class="info-value">무신사 장학생 1기 선정<br />
+                  사업계획서를 제출한 서울 내 패션학과 학생들 중 학교 당 1팀씩 선정하여
+                  패션 브랜드 런칭에 관한 전반적인 교육과 지원을 해주는 대외활동.
+                  사업계획서 작성·디자인·작업지시서 작성 및 생산이 필수이므로
+                  패션 산업에 대한 전반적인 이해를 높이기 위한 활동.</span>
+              </div>
+            </div>
+
+            <div class="info-activity">
+              <div class="info-row">
+                <span class="info-label">기간</span>
+                <span class="info-value"><strong>2024.02 – 2024.06</strong></span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">기관</span>
+                <span class="info-value">한국패션실용전문학교</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">활동내용</span>
+                <span class="info-value">CLO 3D 초급 &amp; 중급 과정<br />
+                  CLO 3D에 대한 전반적인 이해와 작업 방법에 대한 교육</span>
+              </div>
+            </div>
+
+            <div class="info-activity">
+              <div class="info-row">
+                <span class="info-label">기간</span>
+                <span class="info-value"><strong>2025.10 – 2025.12</strong></span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">기관</span>
+                <span class="info-value">Concordia University</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">활동내용</span>
+                <span class="info-value">Ai Foundation<br />
+                  몬트리올 기반 대학교 Concordia에서 데이터 기반 기획 및
+                  디지털 트렌드 분석 역량을 강화하기 위한 AI에 대한 전반적인 이해에 관한 수업 수료</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Career Timeline -->
+        <div class="timeline fade-up delay-3">
+          <p class="timeline-label">Career &amp; Projects</p>
+
+          <div class="timeline-item">
+            <span class="timeline-date">2022.07 — 2023.09</span>
+            <div class="timeline-body">
+              <p class="timeline-co">tego(테고) — 브랜드 운영</p>
+              <p class="timeline-role">디자인·생산관리 총괄. 후드티·볼캡·티셔츠 생산 및 판매 완료. 자사 홈페이지·협찬·마케팅 운영.</p>
+              <span class="timeline-badge">Musinsa Scholar 1st Gen</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-date">2021.07 — 2023.09</span>
+            <div class="timeline-body">
+              <p class="timeline-co">(주)호전실업 — 영업1부 디자인1팀 (사원)</p>
+              <p class="timeline-role">SSEN10 교복 브랜드 로고·교표 제작, 원단·부자재 소싱, 의복 디자인, 작업지시서 작성(Tex pro · Adobe Illustrator · ERP). 인도네시아 공장 자수 작업 소통 담당. 케어라벨 QR코드 적용 디자인 채택.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-date">2019.04 — 2021.07</span>
+            <div class="timeline-body">
+              <p class="timeline-co">dos_means(도스민즈) — 브랜드 운영</p>
+              <p class="timeline-role">디자인·생산관리 및 브랜드 운영 총괄. 마켓 리서치·인스타그램·홈페이지 마케팅.</p>
+              <span class="timeline-badge">크라우드펀딩 236% 달성</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Skills -->
+        <div class="skills-section fade-up delay-3">
+          <p class="skills-label">Skills</p>
+          <div class="skills-grid">
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Adobe Illustrator</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:75%;"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Adobe Photoshop</span>
+                <span class="skill-level">Intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:60%;"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">CLO 3D</span>
+                <span class="skill-level">Intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:65%;"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Microsoft Office</span>
+                <span class="skill-level">Basic</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:40%;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Awards -->
+        <div class="awards-section fade-up delay-4">
+          <p class="awards-label">Awards &amp; Certifications</p>
+
+          <div class="award-item">
+            <div>
+              <p class="award-name">2021 패션기획콘테스트<br /><span style="font-size:0.75rem;color:var(--ink-light);">한국의류학회</span></p>
+              <span class="award-prize">입선</span>
+            </div>
+            <span class="award-meta">2021.10</span>
+          </div>
+
+          <div class="award-item">
+            <div>
+              <p class="award-name">2021 한국신발공모전<br /><span style="font-size:0.75rem;color:var(--ink-light);">부산경제진흥원</span></p>
+              <span class="award-prize">특선</span>
+            </div>
+            <span class="award-meta">2021.10</span>
+          </div>
+
+          <div class="award-item">
+            <div>
+              <p class="award-name">MOS Master<br /><span style="font-size:0.75rem;color:var(--ink-light);">Certiport</span></p>
+              <span class="award-prize">자격증</span>
+            </div>
+            <span class="award-meta">2024.01</span>
+          </div>
+
+          <div class="award-item">
+            <div>
+              <p class="award-name">무신사 장학생 1기 선정<br /><span style="font-size:0.75rem;color:var(--ink-light);">무신사</span></p>
+              <span class="award-prize">선발</span>
+            </div>
+            <span class="award-meta">2022.01</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Contact ──────────────────────────────────────────────────────── -->
+  <section id="contact">
+    <p class="section-label fade-up">Contact</p>
+    <p class="contact-cta fade-up delay-1">
+      Open to collaboration<br />and new opportunities.
+    </p>
+
+    <div class="contact-links fade-up delay-2">
+
+      <a href="mailto:benkimvc@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+        benkimvc@gmail.com
+      </a>
+
+      <div class="contact-divider"></div>
+
+      <a href="https://www.instagram.com/m_m.seong" target="_blank" rel="noopener" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        m_m.seong
+      </a>
+
+      <div class="contact-divider"></div>
+
+      <a href="https://www.linkedin.com/in/benkimvc/" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2" y="2" width="20" height="20" rx="3"/>
+          <line x1="7" y1="10" x2="7" y2="17"/>
+          <circle cx="7" cy="7" r="0.9" fill="currentColor" stroke="none"/>
+          <path d="M11 10v7M11 13.5c0-2.5 2-3.5 4-3.5s4 1 4 3.5V17"/>
+        </svg>
+        LinkedIn
+      </a>
+
+    </div>
+
+    <p class="contact-footer fade-up delay-3">
+      &copy; 2026 김민성 Ben Kim &mdash; All rights reserved
+    </p>
+  </section>
+
+  <!-- ─── Lightbox ─────────────────────────────────────────────────────── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-inner" id="lightboxInner"></div>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">&#8594;</button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+  <script>
+    /* ── Intersection Observer: fade-up + skills bar ─────────────────── */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // skills-section에 visible이 붙으면 CSS transition으로 바 애니메이션
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => io.observe(el));
+
+    /* ── Hero: video → img fallback ──────────────────────────────────── */
+    const heroVideo = document.getElementById('heroVideo');
+    const heroImg   = document.getElementById('heroImg');
+    heroVideo.addEventListener('error', () => {
+      heroVideo.style.display = 'none';
+      heroImg.style.display   = 'block';
+    });
+
+    /* ── Gallery filter ───────────────────────────────────────────────── */
+    const allItems  = Array.from(document.querySelectorAll('.gallery-item'));
+    const filterTabs = Array.from(document.querySelectorAll('.filter-tab'));
+    let activeFilter = 'all';
+    // timers per item so rapid switching doesn't pile up
+    const hideTimers = new WeakMap();
+
+    function filterGallery(cat) {
+      activeFilter = cat;
+
+      allItems.forEach(item => {
+        const match = cat === 'all' || item.dataset.category === cat;
+
+        if (match) {
+          // cancel any pending hide
+          clearTimeout(hideTimers.get(item));
+          item.classList.remove('hidden');
+          // next frame so display:none → block reflow happens before un-fading
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => item.classList.remove('filtered-out'));
+          });
+        } else {
+          item.classList.add('filtered-out');
+          const t = setTimeout(() => item.classList.add('hidden'), 360);
+          hideTimers.set(item, t);
+        }
+      });
+    }
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        filterGallery(tab.dataset.filter);
+      });
+    });
+
+    /* ── Gallery lightbox ─────────────────────────────────────────────── */
+    const lightbox   = document.getElementById('lightbox');
+    const lbInner    = document.getElementById('lightboxInner');
+    const lbClose    = document.getElementById('lightboxClose');
+    const lbCaption  = document.getElementById('lightboxCaption');
+    const lbPrev     = document.getElementById('lightboxPrev');
+    const lbNext     = document.getElementById('lightboxNext');
+    // curItem: reference to the gallery-item currently shown in lightbox
+    let curItem = null;
+
+    function visibleItems() {
+      return allItems.filter(item => !item.classList.contains('hidden') && !item.classList.contains('filtered-out'));
+    }
+
+    function openLightbox(item) {
+      curItem = item;
+      const title    = item.dataset.title  || '';
+      const brand    = item.dataset.brand  || '';
+      const videoSrc = item.dataset.video;
+      lbInner.innerHTML = '';
+
+      if (videoSrc) {
+        const v = document.createElement('video');
+        v.src = videoSrc;
+        v.controls = true;
+        v.autoplay = true;
+        v.style.maxWidth  = '90vw';
+        v.style.maxHeight = '88dvh';
+        lbInner.appendChild(v);
+      } else {
+        const imgEl = item.querySelector('img');
+        if (imgEl && imgEl.naturalWidth > 0) {
+          const i = document.createElement('img');
+          i.src = imgEl.src;
+          i.alt = title;
+          lbInner.appendChild(i);
+        } else {
+          const ph = document.createElement('div');
+          Object.assign(ph.style, {
+            color: 'rgba(255,255,255,.3)',
+            fontSize: '.8rem',
+            letterSpacing: '.1em',
+            textTransform: 'uppercase'
+          });
+          ph.textContent = title || 'No image';
+          lbInner.appendChild(ph);
+        }
+      }
+
+      lbCaption.textContent = brand ? brand + '  —  ' + title : title;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      const v = lbInner.querySelector('video');
+      if (v) v.pause();
+      setTimeout(() => { lbInner.innerHTML = ''; }, 350);
+    }
+
+    function shiftLightbox(dir) {
+      const vis  = visibleItems();
+      if (!vis.length) return;
+      const idx  = vis.indexOf(curItem);
+      const next = vis[(idx + dir + vis.length) % vis.length];
+      openLightbox(next);
+    }
+
+    allItems.forEach(item => item.addEventListener('click', () => openLightbox(item)));
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => shiftLightbox(-1));
+    lbNext.addEventListener('click', () => shiftLightbox(1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  shiftLightbox(-1);
+      if (e.key === 'ArrowRight') shiftLightbox(1);
+    });
+
+    /* ── Nav: hide on scroll-down, show on scroll-up ─────────────────── */
+    let lastY = 0;
+    const navEl = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 80) {
+        navEl.style.transform = y > lastY ? 'translateY(-120%)' : 'translateY(0)';
+        navEl.style.transition = 'transform 0.4s cubic-bezier(.25,.46,.45,.94)';
+      } else {
+        navEl.style.transform = '';
+      }
+      lastY = y;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
