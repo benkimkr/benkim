@@ -217,13 +217,13 @@
     .fade-up.delay-4 { transition-delay: 0.48s; }
 
     /* ─── Gallery ───────────────────────────────────────────────────────── */
-    #gallery { background: var(--ink); color: var(--white); }
+    #gallery { background: #F5F5F3; color: #1A1A1A; }
 
     #gallery .section-label {
-      color: #FFFFFF;
-      font-size: clamp(1.4rem, 3vw, 2.5rem);
+      color: var(--accent);
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.2em;
       margin-bottom: 0;
     }
 
@@ -236,8 +236,8 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2.5rem 2rem;
     }
 
     /* ─── Filter tabs ──────────────────────────────────────────────────── */
@@ -246,7 +246,7 @@
       margin: 0 auto 2.75rem;
       display: flex;
       gap: 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.12);
     }
 
     .filter-tab {
@@ -257,7 +257,7 @@
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(0,0,0,0.35);
       cursor: pointer;
       background: none;
       border: none;
@@ -273,30 +273,25 @@
       left: 0;
       width: 100%;
       height: 1.5px;
-      background: var(--accent-lt);
+      background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s var(--ease);
     }
 
-    .filter-tab:hover { color: rgba(255,255,255,0.65); }
+    .filter-tab:hover { color: rgba(0,0,0,0.65); }
 
-    .filter-tab.active {
-      color: var(--white);
-    }
+    .filter-tab.active { color: #1A1A1A; }
 
     .filter-tab.active::after { transform: scaleX(1); }
 
+    /* ─── Card items ───────────────────────────────────────────────────── */
     .gallery-item {
       position: relative;
-      overflow: hidden;
       cursor: pointer;
-      background: #2A2A28;
-      aspect-ratio: 3/4;
+      background: #FFFFFF;
       transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
     }
-
-    .gallery-item.tall { aspect-ratio: unset; grid-row: span 2; }
 
     .gallery-item.filtered-out {
       opacity: 0;
@@ -306,62 +301,81 @@
 
     .gallery-item.hidden { display: none; }
 
-    .gallery-item img,
-    .gallery-item video {
+    /* Image container — square, clips zoom */
+    .card-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: #FFFFFF;
+    }
+
+    .card-image img,
+    .card-image video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 0.6s var(--ease);
     }
 
-    .gallery-item .img-placeholder {
+    .gallery-item:hover .card-image img,
+    .gallery-item:hover .card-image video { transform: scale(1.06); }
+
+    /* 3D CLO 전용: 세로 비율 */
+    .gallery-item[data-category="3dclo"] .card-image {
+      aspect-ratio: 2 / 3;
+    }
+    .gallery-item[data-category="3dclo"] .card-image img {
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .card-image .img-placeholder {
       width: 100%;
       height: 100%;
-      min-height: 280px;
+      min-height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #242420 0%, #3A3430 100%);
-      font-size: 0.7rem;
+      background: #EBEBEA;
+      font-size: 0.68rem;
       letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.18);
+      color: rgba(0,0,0,0.25);
       text-transform: uppercase;
     }
 
-    .gallery-item:hover img,
-    .gallery-item:hover video { transform: scale(1.04); }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,8,5,0.82) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity 0.4s var(--ease);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.5rem;
+    /* Card info below image */
+    .card-info {
+      padding: 0.9rem 0 0;
     }
 
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-    .gallery-overlay-brand {
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent-lt);
+    .card-category {
+      display: block;
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--accent);
       margin-bottom: 0.3rem;
+      text-transform: lowercase;
     }
 
-    .gallery-overlay-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--white);
-      line-height: 1.3;
+    .card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1A1A1A;
+      margin-bottom: 0.25rem;
+      line-height: 1.4;
     }
 
+    .card-meta {
+      font-size: 0.67rem;
+      color: #999;
+      letter-spacing: 0.03em;
+    }
+
+    /* Play button (video cards) */
     .gallery-play-btn {
       position: absolute;
       top: 50%;
@@ -369,7 +383,7 @@
       transform: translate(-50%, -50%);
       width: 3rem;
       height: 3rem;
-      border: 1.5px solid rgba(255,255,255,0.55);
+      border: 1.5px solid rgba(255,255,255,0.7);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -981,9 +995,9 @@
       .filter-tab { margin-right: 1.5rem; }
 
       .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.75rem 1.25rem;
       }
-      .gallery-item.tall { grid-row: auto; aspect-ratio: 3/4; }
 
       .about-inner {
         grid-template-columns: 1fr;
@@ -998,7 +1012,10 @@
       nav { padding: 1rem 1.25rem; }
       .nav-links { display: none; }
       section { padding: 4rem 1.25rem; }
-      .gallery-grid { gap: 0.4rem; }
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.25rem 0.75rem;
+      }
 
       .skills-grid { grid-template-columns: 1fr; }
       .info-table th:nth-child(n+4),
@@ -1057,6 +1074,7 @@
         autoplay muted loop playsinline
         poster="assets/hero.jpg"
         id="heroVideo"
+        style="width:100%; height:100%; object-fit:contain; object-position:center;"
       ></video>
       <img
         src="assets/hero.jpg"
@@ -1076,112 +1094,394 @@
 
     <!-- Filter tabs -->
     <div class="gallery-filters fade-up delay-2" role="tablist" aria-label="작업 카테고리 필터">
-      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-tab active" data-filter="brand" role="tab" aria-selected="true">Brand</button>
       <button class="filter-tab" data-filter="ssen10" role="tab" aria-selected="false">SSEN10</button>
-      <button class="filter-tab" data-filter="brand" role="tab" aria-selected="false">Brand</button>
-      <button class="filter-tab" data-filter="clo" role="tab" aria-selected="false">3D CLO</button>
-      <button class="filter-tab" data-filter="styling" role="tab" aria-selected="false">Styling</button>
+      <button class="filter-tab" data-filter="3dclo" role="tab" aria-selected="false">3D CLO</button>
+      <button class="filter-tab" data-filter="styling" role="tab" aria-selected="false">Sub Project</button>
     </div>
 
     <div class="gallery-grid" id="galleryGrid">
 
-      <!-- Brand: dos_means FW — tall (span 2 rows) -->
-      <div class="gallery-item tall"
-           data-category="brand" data-title="FW Collection" data-brand="dos_means">
-        <img src="assets/work-01.jpg" alt="dos_means FW Collection"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-01</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">dos_means</span>
-          <span class="gallery-overlay-title">FW Collection</span>
+      <!-- ── SSEN10 (5) ─────────────────────────────────────────────────── -->
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-01.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-01</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- SSEN10: Uniform Concept -->
-      <div class="gallery-item"
-           data-category="ssen10" data-title="Uniform Concept" data-brand="Hojeon × SSEN10">
-        <img src="assets/work-02.jpg" alt="SSEN10 Uniform Concept"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-02</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">Hojeon × SSEN10</span>
-          <span class="gallery-overlay-title">Uniform Concept</span>
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-02.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-02</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- Styling -->
-      <div class="gallery-item"
-           data-category="styling" data-title="Seasonal Styling" data-brand="tego">
-        <img src="assets/work-03.jpg" alt="tego Seasonal Styling"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-03</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">tego</span>
-          <span class="gallery-overlay-title">Seasonal Styling</span>
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-03.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-03</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- SSEN10: Production Sample -->
-      <div class="gallery-item"
-           data-category="ssen10" data-title="Production Sample" data-brand="Hojeon × SSEN10">
-        <img src="assets/work-04.jpg" alt="SSEN10 Production"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-04</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">Hojeon × SSEN10</span>
-          <span class="gallery-overlay-title">Production Sample</span>
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-04.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-04</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- Brand: tego — tall (span 2 rows) -->
-      <div class="gallery-item tall"
-           data-category="brand" data-title="Musinsa Scholar 1st Gen" data-brand="tego">
-        <img src="assets/work-05.jpg" alt="tego Musinsa Scholar"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-05</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">tego</span>
-          <span class="gallery-overlay-title">Musinsa Scholar 1st Gen</span>
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-05.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-05</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- 3D CLO: Garment Simulation -->
-      <div class="gallery-item"
-           data-category="clo" data-title="Garment Simulation" data-brand="wrksp">
-        <img src="assets/work-06.jpg" alt="CLO 3D Garment Simulation"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-06</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">wrksp</span>
-          <span class="gallery-overlay-title">Garment Simulation</span>
+      <div class="gallery-item" data-category="ssen10" data-title="" data-brand="Hojeon × SSEN10">
+        <div class="card-image">
+          <img src="assets/ssen10-06.jpg" alt="Hojeon × SSEN10"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">ssen10-06</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">ssen10</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Hojeon × SSEN10</span>
         </div>
       </div>
 
-      <!-- Styling: Campaign Film (video) -->
-      <div class="gallery-item is-video"
-           data-category="styling" data-title="Campaign Film" data-brand="tego"
-           data-video="assets/work-video.mp4">
-        <img src="assets/work-07.jpg" alt="tego Campaign Film"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-07</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">tego</span>
-          <span class="gallery-overlay-title">Campaign Film</span>
+      <!-- ── BRAND: dos_means (5) ───────────────────────────────────────── -->
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-01.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-01</div>
         </div>
-        <div class="gallery-play-btn">
-          <svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
         </div>
       </div>
 
-      <!-- 3D CLO: Pattern Study -->
-      <div class="gallery-item"
-           data-category="clo" data-title="Pattern Study" data-brand="dos_means">
-        <img src="assets/work-08.jpg" alt="CLO 3D Pattern Study"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-        <div class="img-placeholder">work-08</div>
-        <div class="gallery-overlay">
-          <span class="gallery-overlay-brand">dos_means</span>
-          <span class="gallery-overlay-title">Pattern Study</span>
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-02.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-02</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-03.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-03</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-04.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-04</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-05.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-05</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="dos_means">
+        <div class="card-image">
+          <img src="assets/dos-06.jpg" alt="dos_means"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">dos-06</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">dos_means</span>
+        </div>
+      </div>
+
+      <!-- ── BRAND: tego (5) ───────────────────────────────────────────── -->
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="tego">
+        <div class="card-image">
+          <img src="assets/tego-01.jpg" alt="tego"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">tego-01</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">tego</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="tego">
+        <div class="card-image">
+          <img src="assets/tego-02.jpg" alt="tego"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">tego-02</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">tego</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="tego">
+        <div class="card-image">
+          <img src="assets/tego-03.jpg" alt="tego"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">tego-03</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">tego</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="brand" data-title="" data-brand="tego">
+        <div class="card-image">
+          <img src="assets/tego-04.jpg" alt="tego"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">tego-04</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">brand</span>
+          <p class="card-title"></p>
+          <span class="card-meta">tego</span>
+        </div>
+      </div>
+
+
+      <!-- ── 3D CLO (5) ─────────────────────────────────────────────────── -->
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-01.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-01</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-02.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-02</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-03.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-03</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-04.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-04</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-05.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-05</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-06.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-06</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-07.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-07</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="3dclo" data-title="" data-brand="CLO3D">
+        <div class="card-image">
+          <img src="assets/clo-08.png" alt="CLO3D"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">clo-08</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">3d clo</span>
+          <p class="card-title"></p>
+          <span class="card-meta">CLO3D</span>
+        </div>
+      </div>
+
+      <!-- ── STYLING (5) ─────────────────────────────────────────────────── -->
+      <div class="gallery-item" data-category="styling" data-title="" data-brand="Styling">
+        <div class="card-image">
+          <img src="assets/styling-01.jpg" alt="Styling"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">styling-01</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">styling</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Newera FFALO</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="styling" data-title="" data-brand="Styling">
+        <div class="card-image">
+          <img src="assets/styling-02.jpg" alt="Styling"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">styling-02</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">styling</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Newera FFALO</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="styling" data-title="" data-brand="Styling">
+        <div class="card-image">
+          <img src="assets/styling-03.jpg" alt="Styling"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">styling-03</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">styling</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Newera FFALO</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="styling" data-title="" data-brand="Styling">
+        <div class="card-image">
+          <img src="assets/styling-04.jpg" alt="Styling"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">styling-04</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">styling</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Newera FFALO</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="styling" data-title="" data-brand="Styling">
+        <div class="card-image">
+          <img src="assets/styling-05.jpg" alt="Styling"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder">styling-05</div>
+        </div>
+        <div class="card-info">
+          <span class="card-category">styling</span>
+          <p class="card-title"></p>
+          <span class="card-meta">Newera FFALO</span>
         </div>
       </div>
 
@@ -1535,7 +1835,7 @@
     /* ── Gallery filter ───────────────────────────────────────────────── */
     const allItems  = Array.from(document.querySelectorAll('.gallery-item'));
     const filterTabs = Array.from(document.querySelectorAll('.filter-tab'));
-    let activeFilter = 'all';
+    let activeFilter = 'brand';
     // timers per item so rapid switching doesn't pile up
     const hideTimers = new WeakMap();
 
@@ -1543,13 +1843,11 @@
       activeFilter = cat;
 
       allItems.forEach(item => {
-        const match = cat === 'all' || item.dataset.category === cat;
+        const match = item.dataset.category === cat;
 
         if (match) {
-          // cancel any pending hide
           clearTimeout(hideTimers.get(item));
           item.classList.remove('hidden');
-          // next frame so display:none → block reflow happens before un-fading
           requestAnimationFrame(() => {
             requestAnimationFrame(() => item.classList.remove('filtered-out'));
           });
@@ -1569,6 +1867,9 @@
         filterGallery(tab.dataset.filter);
       });
     });
+
+    // 진입 시 BRAND 탭 기본 적용
+    filterGallery('brand');
 
     /* ── Gallery lightbox ─────────────────────────────────────────────── */
     const lightbox   = document.getElementById('lightbox');
